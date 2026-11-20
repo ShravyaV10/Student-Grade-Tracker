@@ -102,6 +102,7 @@ public class Main {
         input.close();
     }
 
+    // Read an integer safely
     public static int readInt() {
 
         while (true) {
@@ -124,6 +125,7 @@ public class Main {
         }
     }
 
+    // Find a student using ID
     public static Student getStudent() {
 
         System.out.print("Enter Student ID: ");
@@ -138,7 +140,7 @@ public class Main {
         return student;
     }
 
-
+    // Register student
     public static void registerStudent() {
 
         try {
@@ -167,6 +169,7 @@ public class Main {
         }
     }
 
+    // Search student
     public static void searchStudent() {
 
         Student student = getStudent();
@@ -176,6 +179,7 @@ public class Main {
         }
     }
 
+    // Update student details
     public static void updateStudent() {
 
         Student student = getStudent();
@@ -203,6 +207,7 @@ public class Main {
         );
     }
 
+    // Add subject marks
     public static void addSubjectMarks() {
 
         Student student = getStudent();
@@ -231,6 +236,7 @@ public class Main {
         }
     }
 
+    // Update subject marks
     public static void updateSubjectMarks() {
 
         Student student = getStudent();
@@ -256,6 +262,7 @@ public class Main {
         }
     }
 
+    // View semester marks
     public static void viewSemesterMarks() {
 
         Student student = getStudent();
@@ -269,6 +276,7 @@ public class Main {
     }
 
 
+    // Calculate SGPA
     public static void calculateSGPA() {
 
         Student student = getStudent();
@@ -291,6 +299,7 @@ public class Main {
         System.out.printf("SGPA: %.2f%n", sgpa);
     }
 
+    // Calculate CGPA
     public static void calculateCGPA() {
 
         Student student = getStudent();
@@ -302,6 +311,7 @@ public class Main {
         System.out.printf("CGPA: %.2f%n", cgpa);
     }
 
+    // Generate report card
     public static void generateReport() {
 
         Student student = getStudent();
