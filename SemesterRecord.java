@@ -89,4 +89,23 @@ public class SemesterRecord extends AcademicRecord {
         System.out.println("Total Marks: " + getTotalMarks());
         System.out.printf("Percentage: %.2f%%%n", getPercentage());
     }
+
+
+    // Check whether the student passed all subjects
+    public boolean isPass() {
+
+        if (subjects.isEmpty()) {
+            return false;
+        }
+
+        for (Subject subject : subjects.values()) {
+
+            if (subject.getMarks() < 40) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
 }
