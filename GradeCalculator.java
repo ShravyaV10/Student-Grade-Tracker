@@ -73,4 +73,35 @@ public class GradeCalculator {
         return totalGradePoints / totalCredits;
     }
 
+
+    // Calculate CGPA across all semesters
+    public double calculateCGPA(Student student) {
+
+        if (student == null) {
+            return 0;
+        }
+
+        double totalGradePoints = 0;
+        int totalCredits = 0;
+
+        for (SemesterRecord record :
+                student.getSemesterRecords().values()) {
+
+            for (Subject subject : record.getSubjects().values()) {
+
+                int gradePoint = getGradePoint(subject.getMarks());
+
+                totalGradePoints += subject.getCredits() * gradePoint;
+
+                totalCredits += subject.getCredits();
+            }
+        }
+
+        if (totalCredits == 0) {
+            return 0;
+        }
+
+        return totalGradePoints / totalCredits;
+    }
+
 }
