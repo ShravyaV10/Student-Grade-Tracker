@@ -12,7 +12,7 @@ public class Main {
     static MarksService marksService = new MarksService();
     static GradeCalculator calculator = new GradeCalculator();
     static ReportCard reportCard = new ReportCard();
-
+    static HallTicketService hallTicketService = new HallTicketService(studentService);
     public static void main(String[] args) {
 
         int choice;
@@ -30,6 +30,7 @@ public class Main {
             System.out.println("8. Calculate SGPA");
             System.out.println("9. Calculate CGPA");
             System.out.println("10. Generate Report Card");
+            System.out.println("11. Generate Hall Ticket");
             System.out.println("0. Exit");
 
             System.out.print("Enter your choice: ");
@@ -77,6 +78,17 @@ public class Main {
                     generateReport();
                     break;
 
+                case 11:
+    System.out.print("Enter Student ID: ");
+    int ticketStudentId = input.nextInt();
+
+    System.out.print("Enter Semester Number: ");
+    int ticketSemester = input.nextInt();
+
+    hallTicketService.generateHallTicket(
+            ticketStudentId, ticketSemester
+    );
+    break;
                 case 0:
                     System.out.println("Thank you for using the application!");
                     break;
@@ -263,6 +275,7 @@ public class Main {
 
         marksService.displaySemesterMarks(student, semester);
     }
+
 
     // Calculate SGPA
     public static void calculateSGPA() {
