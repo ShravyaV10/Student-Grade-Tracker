@@ -45,4 +45,32 @@ public class GradeCalculator {
     public String getOverallGrade(double percentage) {
         return getGrade(percentage);
     }
+
+
+    // Calculate SGPA for one semester
+    public double calculateSGPA(SemesterRecord record) {
+
+        if (record == null || record.getSubjects().isEmpty()) {
+            return 0;
+        }
+
+        double totalGradePoints = 0;
+        int totalCredits = 0;
+
+        for (Subject subject : record.getSubjects().values()) {
+
+            int gradePoint = getGradePoint(subject.getMarks());
+
+            totalGradePoints += subject.getCredits() * gradePoint;
+
+            totalCredits += subject.getCredits();
+        }
+
+        if (totalCredits == 0) {
+            return 0;
+        }
+
+        return totalGradePoints / totalCredits;
+    }
+
 }
