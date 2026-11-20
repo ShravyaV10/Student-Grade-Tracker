@@ -4,56 +4,52 @@ import java.util.HashMap;
 public class SemesterRecord extends AcademicRecord {
 
     private int semesterNumber;
-
     private HashMap<String, Subject> subjects;
-    private HashMap<Integer, SemesterRecord> semesterRecords;
 
+    // Constructor
     public SemesterRecord(int semesterNumber) {
+
         if (semesterNumber <= 0) {
-            throw new IllegalArgumentException("Semester number must be positive.");
+            throw new IllegalArgumentException(
+                "Semester number must be positive."
+            );
         }
 
         this.semesterNumber = semesterNumber;
         subjects = new HashMap<>();
-        semesterRecords = new HashMap<>();
     }
 
+    // Get semester number
     public int getSemesterNumber() {
         return semesterNumber;
     }
 
+    // Get all subjects
     public HashMap<String, Subject> getSubjects() {
         return subjects;
     }
 
+    // Add a subject
     public void addSubject(Subject subject) {
+
         if (subject == null) {
-            throw new IllegalArgumentException("Subject cannot be null.");
+            throw new IllegalArgumentException(
+                "Subject cannot be null."
+            );
         }
 
-        subjects.put(subject.getSubjectName().toLowerCase(), subject);
+        subjects.put(
+            subject.getSubjectName().toLowerCase(),
+            subject
+        );
+
         System.out.println("Subject added successfully!");
     }
 
-
-    public void addSemesterRecord(SemesterRecord record) {
-        if (record == null) {
-            throw new IllegalArgumentException("Semester record cannot be null.");
-        }
-
-        semesterRecords.put(record.getSemesterNumber(), record);
-    }
-
-    public SemesterRecord getSemesterRecord(int semesterNumber) {
-        return semesterRecords.get(semesterNumber);
-    }
-
-    public HashMap<Integer, SemesterRecord> getSemesterRecords() {
-        return semesterRecords;
-    }
-
+    // Calculate total marks
     @Override
     public double getTotalMarks() {
+
         double total = 0;
 
         for (Subject subject : subjects.values()) {
@@ -63,17 +59,22 @@ public class SemesterRecord extends AcademicRecord {
         return total;
     }
 
+    // Calculate percentage
     public double getPercentage() {
+
         if (subjects.isEmpty()) {
             return 0;
         }
 
         double maximumMarks = subjects.size() * 100.0;
+
         return (getTotalMarks() / maximumMarks) * 100;
     }
 
+    // Display semester details
     @Override
     public void displayDetails() {
+
         System.out.println("\nSemester: " + semesterNumber);
 
         if (subjects.isEmpty()) {
@@ -87,9 +88,12 @@ public class SemesterRecord extends AcademicRecord {
         }
 
         System.out.println("Total Marks: " + getTotalMarks());
-        System.out.printf("Percentage: %.2f%%%n", getPercentage());
-    }
 
+        System.out.printf(
+            "Percentage: %.2f%%%n",
+            getPercentage()
+        );
+    }
 
     // Check whether the student passed all subjects
     public boolean isPass() {
@@ -107,5 +111,4 @@ public class SemesterRecord extends AcademicRecord {
 
         return true;
     }
-
 }

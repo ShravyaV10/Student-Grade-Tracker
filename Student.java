@@ -12,11 +12,11 @@ public class Student{
     public Student(int sid,String name,String dept,int year,int curSem )
         throws InvalidStudentException {
 
-    if (SId <= 0) {
+    if (sid <= 0) {
         throw new InvalidStudentException("Student ID must be positive.");
     }
 
-    this.SId = SId;
+    this.SId = sid;
     this.semesterRecords = new HashMap<>();
 
     setName(name);

@@ -33,7 +33,7 @@ public class Subject {
 
     public void setMarks(double marks) throws InvalidMarksException {
         if (marks < 0 || marks > 100) {
-            throw new IllegalArgumentException("Marks must be between 0 and 100.");
+            throw new InvalidMarksException("Marks must be between 0 and 100.");
         }
         this.marks = marks;
     }
