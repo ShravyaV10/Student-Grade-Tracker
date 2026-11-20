@@ -6,15 +6,16 @@ public class SemesterRecord extends AcademicRecord {
     private int semesterNumber;
 
     private HashMap<String, Subject> subjects;
+    private HashMap<Integer, SemesterRecord> semesterRecords;
 
     public SemesterRecord(int semesterNumber) {
-
         if (semesterNumber <= 0) {
-            throw new IllegalArgumentException("Invalid semester number.");
+            throw new IllegalArgumentException("Semester number must be positive.");
         }
 
         this.semesterNumber = semesterNumber;
         subjects = new HashMap<>();
+        semesterRecords = new HashMap<>();
     }
 
     public int getSemesterNumber() {
@@ -25,34 +26,38 @@ public class SemesterRecord extends AcademicRecord {
         return subjects;
     }
 
-    public void addOrUpdateSubject(String name, double marks, int credits) {
-
-        if (name == null || name.trim().isEmpty()) {
-            throw new IllegalArgumentException("Subject name cannot be empty.");
+    public void addSubject(Subject subject) {
+        if (subject == null) {
+            throw new IllegalArgumentException("Subject cannot be null.");
         }
 
-        String key = name.trim();
-
-        if (subjects.containsKey(key)) {
-
-            Subject existingSubject = subjects.get(key);
-            existingSubject.setMarks(marks);
-            existingSubject.setCredits(credits);
-
-            System.out.println("Subject details updated successfully!");
-
-        } else {
-
-            Subject newSubject = new Subject(key, marks, credits);
-            subjects.put(key, newSubject);
-
-            System.out.println("Subject added successfully!");
-        }
+        subjects.put(subject.getSubjectName().toLowerCase(), subject);
+        System.out.println("Subject added successfully!");
     }
 
+
+    // Add or update a semester record
+    public void addSemesterRecord(SemesterRecord record) {
+        if (record == null) {
+            throw new IllegalArgumentException("Semester record cannot be null.");
+        }
+
+        semesterRecords.put(record.getSemesterNumber(), record);
+    }
+
+    // Get a semester record
+    public SemesterRecord getSemesterRecord(int semesterNumber) {
+        return semesterRecords.get(semesterNumber);
+    }
+
+    // Get all semester records
+    public HashMap<Integer, SemesterRecord> getSemesterRecords() {
+        return semesterRecords;
+    }
+
+    
     @Override
     public double getTotalMarks() {
-
         double total = 0;
 
         for (Subject subject : subjects.values()) {
@@ -62,39 +67,30 @@ public class SemesterRecord extends AcademicRecord {
         return total;
     }
 
-    public double getMaximumMarks() {
-        return subjects.size() * 100.0;
-    }
-
-    public int getTotalCredits() {
-
-        int totalCredits = 0;
-
-        for (Subject subject : subjects.values()) {
-            totalCredits += subject.getCredits();
+    public double getPercentage() {
+        if (subjects.isEmpty()) {
+            return 0;
         }
 
-        return totalCredits;
+        double maximumMarks = subjects.size() * 100.0;
+        return (getTotalMarks() / maximumMarks) * 100;
     }
 
     @Override
     public void displayDetails() {
-
-        System.out.println("\n===== SEMESTER " + semesterNumber + " RECORD =====");
+        System.out.println("\nSemester: " + semesterNumber);
 
         if (subjects.isEmpty()) {
-            System.out.println("No subjects added yet.");
+            System.out.println("No subjects added.");
             return;
         }
 
         for (Subject subject : subjects.values()) {
-            System.out.println("--------------------");
             subject.displayDetails();
+            System.out.println("-------------------");
         }
 
-        System.out.println("--------------------");
         System.out.println("Total Marks: " + getTotalMarks());
-        System.out.println("Maximum Marks: " + getMaximumMarks());
-        System.out.println("Total Credits: " + getTotalCredits());
+        System.out.printf("Percentage: %.2f%%%n", getPercentage());
     }
 }
