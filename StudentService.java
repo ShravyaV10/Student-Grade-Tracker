@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 import java.util.HashSet;
+import exceptions.DuplicateStudentException;
+import exceptions.InvalidStudentException;
 
 public class StudentService {
     private ArrayList<Student> students;
@@ -10,23 +12,22 @@ public class StudentService {
         SIds=new HashSet<>();
     }
 
-    public void registerStudent(Student student){
-       if (student == null) {
-            System.out.println("Invalid student details!");
-            return;
-        }
+public void registerStudent(Student student)
+        throws DuplicateStudentException, InvalidStudentException {
 
-        if (SIds.contains(student.getStudentId())) {
-            System.out.println("Student ID already exists!");
-            return;
-        }
-
-        students.add(student);
-        SIds.add(student.getStudentId());
-
-        System.out.println("Student registered successfully!");
+    if (student == null) {
+        throw new InvalidStudentException("Student cannot be null.");
     }
 
+    if (SIds.contains(student.getStudentId())) {
+        throw new DuplicateStudentException("Student ID already exists.");
+    }
+
+    students.add(student);
+    SIds.add(student.getStudentId());
+
+    System.out.println("Student registered successfully!");
+}
 
     public void displayAllStudents() {
 

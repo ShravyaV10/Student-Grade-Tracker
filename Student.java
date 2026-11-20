@@ -1,4 +1,5 @@
 import java.util.HashMap;
+import exceptions.InvalidStudentException;
 
 public class Student{
     private int SId;
@@ -8,13 +9,20 @@ public class Student{
     private int curSem;
     private HashMap<Integer, SemesterRecord> semesterRecords;
 
-    public Student(int sid,String name,String dept,int year,int curSem ){
-        this.SId=sid;
-        this.name=name;
-        this.dept=dept;
-        this.year=year;
-        this.curSem=curSem;
-        semesterRecords = new HashMap<>();
+    public Student(int sid,String name,String dept,int year,int curSem )
+        throws InvalidStudentException {
+
+    if (SId <= 0) {
+        throw new InvalidStudentException("Student ID must be positive.");
+    }
+
+    this.SId = SId;
+    this.semesterRecords = new HashMap<>();
+
+    setName(name);
+    setDept(dept);
+    setYear(year);
+    setCurSem(curSem);
     }
 
     //Get Student Details

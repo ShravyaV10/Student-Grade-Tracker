@@ -1,8 +1,9 @@
+import exceptions.InvalidMarksException;
 
 public class MarksService {
 
     public void addSubjectMarks(Student student, int semesterNumber,
-                                String subjectName, double marks, int credits) {
+                                String subjectName, double marks, int credits) throws InvalidMarksException{
 
         if (student == null) {
             System.out.println("Student not found!");
@@ -28,7 +29,7 @@ public class MarksService {
 
     // Update marks of an existing subject
     public void updateMarks(Student student, int semesterNumber,
-                            String subjectName, double newMarks) {
+                            String subjectName, double newMarks) throws InvalidMarksException {
 
         if (student == null) {
             System.out.println("Student not found!");

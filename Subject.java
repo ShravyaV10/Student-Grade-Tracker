@@ -1,3 +1,4 @@
+import exceptions.InvalidMarksException;
 
 public class Subject {
 
@@ -5,7 +6,7 @@ public class Subject {
     private double marks;
     private int credits;
 
-    public Subject(String subjectName, double marks, int credits) {
+    public Subject(String subjectName, double marks, int credits) throws InvalidMarksException {
         setSubjectName(subjectName);
         setMarks(marks);
         setCredits(credits);
@@ -30,7 +31,7 @@ public class Subject {
         this.subjectName = subjectName;
     }
 
-    public void setMarks(double marks) {
+    public void setMarks(double marks) throws InvalidMarksException {
         if (marks < 0 || marks > 100) {
             throw new IllegalArgumentException("Marks must be between 0 and 100.");
         }
