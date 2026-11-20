@@ -1,7 +1,6 @@
 
 public class MarksService {
 
-    // Add a subject to a student's semester
     public void addSubjectMarks(Student student, int semesterNumber,
                                 String subjectName, double marks, int credits) {
 
@@ -10,7 +9,6 @@ public class MarksService {
             return;
         }
 
-        // Find the semester record
         SemesterRecord record = student.getSemesterRecord(semesterNumber);
 
         // Create a new semester record if it does not exist

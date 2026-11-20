@@ -36,7 +36,6 @@ public class SemesterRecord extends AcademicRecord {
     }
 
 
-    // Add or update a semester record
     public void addSemesterRecord(SemesterRecord record) {
         if (record == null) {
             throw new IllegalArgumentException("Semester record cannot be null.");
@@ -45,17 +44,14 @@ public class SemesterRecord extends AcademicRecord {
         semesterRecords.put(record.getSemesterNumber(), record);
     }
 
-    // Get a semester record
     public SemesterRecord getSemesterRecord(int semesterNumber) {
         return semesterRecords.get(semesterNumber);
     }
 
-    // Get all semester records
     public HashMap<Integer, SemesterRecord> getSemesterRecords() {
         return semesterRecords;
     }
 
-    
     @Override
     public double getTotalMarks() {
         double total = 0;
