@@ -10,13 +10,15 @@ public class Student{
     private HashMap<Integer, SemesterRecord> semesterRecords;
 
     public Student(int sid,String name,String dept,int year,int curSem )
-        throws InvalidStudentException {
-
-    if (sid <= 0) {
+        throws InvalidStudentException {    
+        if (sid <= 0) {
         throw new InvalidStudentException("Student ID must be positive.");
     }
 
+    
+
     this.SId = sid;
+    
     this.semesterRecords = new HashMap<>();
 
     setName(name);

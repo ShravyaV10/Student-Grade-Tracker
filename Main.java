@@ -3,6 +3,7 @@ import java.util.Scanner;
 
 import exceptions.GradeTrackerException;
 import exceptions.InvalidMarksException;
+import exceptions.InvalidStudentException;
 
 public class Main {
 
@@ -79,16 +80,21 @@ public class Main {
                     break;
 
                 case 11:
-    System.out.print("Enter Student ID: ");
-    int ticketStudentId = input.nextInt();
+                    System.out.print("Enter Student ID: ");
+                    int ticketStudentId = readInt();
 
-    System.out.print("Enter Semester Number: ");
-    int ticketSemester = input.nextInt();
+                    if (ticketStudentId <= 0) {
+                        System.out.println("Error: Student ID must be positive.");
+                        break;
+                    }
 
-    hallTicketService.generateHallTicket(
-            ticketStudentId, ticketSemester
-    );
-    break;
+                    System.out.print("Enter Semester Number: ");
+                    int ticketSemester = readInt();
+
+                    hallTicketService.generateHallTicket(
+                            ticketStudentId, ticketSemester
+                    );
+                    break;
                 case 0:
                     System.out.println("Thank you for using the application!");
                     break;
@@ -131,6 +137,11 @@ public class Main {
         System.out.print("Enter Student ID: ");
         int id = readInt();
 
+        if (id <= 0) {
+            System.out.println("Error: Student ID must be positive.");
+            return null;
+        }
+
         Student student = studentService.searchStudent(id);
 
         if (student == null) {
@@ -146,6 +157,10 @@ public class Main {
         try {
             System.out.print("Student ID: ");
             int id = readInt();
+
+            if (id <= 0) {
+                throw new InvalidStudentException("Student ID must be positive.");
+            }
 
             System.out.print("Name: ");
             String name = input.nextLine();

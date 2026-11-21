@@ -22,6 +22,8 @@ public void registerStudent(Student student)
     if (SIds.contains(student.getStudentId())) {
         throw new DuplicateStudentException("Student ID already exists.");
     }
+    
+    
 
     students.add(student);
     SIds.add(student.getStudentId());
