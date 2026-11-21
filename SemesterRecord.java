@@ -1,10 +1,12 @@
 
 import java.util.HashMap;
-
+import java.util.HashSet;
 public class SemesterRecord extends AcademicRecord {
 
     private int semesterNumber;
     private HashMap<String, Subject> subjects;
+    private HashSet<String> registeredSubjects;
+
 
     // Constructor
     public SemesterRecord(int semesterNumber) {
@@ -17,6 +19,7 @@ public class SemesterRecord extends AcademicRecord {
 
         this.semesterNumber = semesterNumber;
         subjects = new HashMap<>();
+        registeredSubjects=new HashSet<>();
     }
 
     // Get semester number
@@ -111,4 +114,14 @@ public class SemesterRecord extends AcademicRecord {
 
         return true;
     }
+    public void registerSubject(String subjectName) {
+    if (subjectName == null || subjectName.trim().isEmpty()) {
+        throw new IllegalArgumentException("Invalid subject name.");
+    }
+
+    registeredSubjects.add(subjectName.toLowerCase());
+}
+public HashSet<String> getRegisteredSubjects() {
+    return registeredSubjects;
+}
 }

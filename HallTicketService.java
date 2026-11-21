@@ -1,4 +1,3 @@
-
 public class HallTicketService {
 
     private StudentService studentService;
@@ -26,15 +25,8 @@ public class HallTicketService {
         }
 
         // Check whether subjects are registered
-        if (record.getSubjects().isEmpty()) {
+        if (record.getRegisteredSubjects().isEmpty()) {
             System.out.println("No subjects registered for this semester!");
-            return;
-        }
-
-        // Check examination eligibility
-        if (!record.isPass()) {
-            System.out.println("Hall ticket cannot be generated!");
-            System.out.println("Reason: Student has failed in one or more subjects.");
             return;
         }
 
