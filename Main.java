@@ -20,82 +20,92 @@ public class Main {
         do {
 
             System.out.println("\n===== STUDENT INFORMATION AND GRADE TRACKER =====");
-            System.out.println("1. Register Student");
-            System.out.println("2. View All Students");
-            System.out.println("3. Search Student");
-            System.out.println("4. Update Student Details");
-            System.out.println("5. Add Subject Marks");
-            System.out.println("6. Update Subject Marks");
-            System.out.println("7. View Semester Marks");
-            System.out.println("8. Calculate SGPA");
-            System.out.println("9. Calculate CGPA");
-            System.out.println("10. Generate Report Card");
-            System.out.println("11. Generate Hall Ticket");
-            System.out.println("0. Exit");
+System.out.println("1. Register Student");
+System.out.println("2. View All Students");
+System.out.println("3. Search Student");
+System.out.println("4. Update Student Details");
+System.out.println("5. Register Subjects");
+System.out.println("6. Generate Hall Ticket");
+System.out.println("7. Add Subject Marks");
+System.out.println("8. Update Subject Marks");
+System.out.println("9. View Semester Marks");
+System.out.println("10. Calculate SGPA");
+System.out.println("11. Calculate CGPA");
+System.out.println("12. Generate Report Card");
+System.out.println("0. Exit");
 
             System.out.print("Enter your choice: ");
             choice = readInt();
-
             switch (choice) {
 
-                case 1:
-                    registerStudent();
-                    break;
+    case 1:
+        registerStudent();
+        break;
 
-                case 2:
-                    studentService.displayAllStudents();
-                    break;
+    case 2:
+        studentService.displayAllStudents();
+        break;
 
-                case 3:
-                    searchStudent();
-                    break;
+    case 3:
+        searchStudent();
+        break;
 
-                case 4:
-                    updateStudent();
-                    break;
+    case 4:
+        updateStudent();
+        break;
 
-                case 5:
-                    addSubjectMarks();
-                    break;
+    case 5:
+        registerSubjects();
+        break;
 
-                case 6:
-                    updateSubjectMarks();
-                    break;
+    case 6:
+        System.out.print("Enter Student ID: ");
+        int ticketStudentId = readInt();
 
-                case 7:
-                    viewSemesterMarks();
-                    break;
+        if (ticketStudentId <= 0) {
+            System.out.println("Error: Student ID must be positive.");
+            break;
+        }
 
-                case 8:
-                    calculateSGPA();
-                    break;
+        System.out.print("Enter Semester Number: ");
+        int ticketSemester = readInt();
 
-                case 9:
-                    calculateCGPA();
-                    break;
+        hallTicketService.generateHallTicket(
+                ticketStudentId, ticketSemester
+        );
+        break;
 
-                case 10:
-                    generateReport();
-                    break;
+    case 7:
+        addSubjectMarks();
+        break;
 
-                case 11:
-    System.out.print("Enter Student ID: ");
-    int ticketStudentId = input.nextInt();
+    case 8:
+        updateSubjectMarks();
+        break;
 
-    System.out.print("Enter Semester Number: ");
-    int ticketSemester = input.nextInt();
+    case 9:
+        viewSemesterMarks();
+        break;
 
-    hallTicketService.generateHallTicket(
-            ticketStudentId, ticketSemester
-    );
-    break;
-                case 0:
-                    System.out.println("Thank you for using the application!");
-                    break;
+    case 10:
+        calculateSGPA();
+        break;
 
-                default:
-                    System.out.println("Invalid choice!");
-            }
+    case 11:
+        calculateCGPA();
+        break;
+
+    case 12:
+        generateReport();
+        break;
+
+    case 0:
+        System.out.println("Thank you for using the application!");
+        break;
+
+    default:
+        System.out.println("Invalid choice!");
+}
 
         } while (choice != 0);
 
@@ -235,7 +245,41 @@ public class Main {
             System.out.println("Error: " + e.getMessage());
         }
     }
+// Register subjects before examination
+public static void registerSubjects() {
 
+    Student student = getStudent();
+
+    if (student == null) return;
+
+    System.out.print("Semester Number: ");
+    int semester = readInt();
+
+    System.out.print("How many subjects do you want to register? ");
+    int count = readInt();
+
+    if (count <= 0) {
+        System.out.println("Number of subjects must be positive.");
+        return;
+    }
+
+    for (int i = 1; i <= count; i++) {
+
+        System.out.print("Enter Subject " + i + " Name: ");
+        String subject = input.nextLine().trim();
+
+        try {
+            marksService.registerSubject(
+                    student, semester, subject
+            );
+
+        } catch (IllegalArgumentException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
+    System.out.println("Subject registration completed.");
+}
     // Update subject marks
     public static void updateSubjectMarks() {
 

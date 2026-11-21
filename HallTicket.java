@@ -32,11 +32,9 @@ public class HallTicket {
 
         System.out.printf("%-25s %-10s%n", "Subject", "Credits");
 
-        for (Subject subject : semesterRecord.getSubjects().values()) {
-            System.out.printf("%-25s %-10d%n",
-                    subject.getSubjectName(),
-                    subject.getCredits());
-        }
+       for (String subject : semesterRecord.getRegisteredSubjects()) {
+       System.out.printf("%-25s %-10s%n", subject, "N/A");
+}
 
         System.out.println("------------------------------------------");
         System.out.println("Student Signature : ______________");

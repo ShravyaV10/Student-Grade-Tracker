@@ -5,19 +5,25 @@ public class MarksService {
     public void addSubjectMarks(Student student, int semesterNumber,
                                 String subjectName, double marks, int credits) throws InvalidMarksException{
 
+                                    
         if (student == null) {
             System.out.println("Student not found!");
             return;
         }
 
-        SemesterRecord record = student.getSemesterRecord(semesterNumber);
 
+        SemesterRecord record = student.getSemesterRecord(semesterNumber);
+        
         // Create a new semester record if it does not exist
         if (record == null) {
             record = new SemesterRecord(semesterNumber);
             student.addSemesterRecord(record);
         }
-
+        if (!record.getRegisteredSubjects()
+        .contains(subjectName.toLowerCase())) {
+    System.out.println("Subject is not registered!");
+    return;
+}
         // Create and add the subject
         try {
             Subject subject = new Subject(subjectName, marks, credits);
@@ -75,4 +81,21 @@ public class MarksService {
 
         record.displayDetails();
     }
+    public void registerSubject(Student student, int semesterNumber,
+                            String subjectName) {
+
+    if (student == null) {
+        System.out.println("Student not found!");
+        return;
+    }
+
+    SemesterRecord record = student.getSemesterRecord(semesterNumber);
+
+    if (record == null) {
+        record = new SemesterRecord(semesterNumber);
+        student.addSemesterRecord(record);
+    }
+
+    record.registerSubject(subjectName);
+}
 }
