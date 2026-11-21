@@ -32,8 +32,14 @@ public class HallTicket {
 
         System.out.printf("%-26s %-22s%n", "Subject", "Sign of Invigilator");
 
-        for (Subject subject : semesterRecord.getSubjects().values()) {
-            System.out.printf("%-26s %-22s%n", subject.getSubjectName(), "___________________");
+        if (!semesterRecord.getRegisteredSubjects().isEmpty()) {
+            for (String subjectName : semesterRecord.getRegisteredSubjects()) {
+                System.out.printf("%-26s %-22s%n", subjectName.toUpperCase(), "___________________");
+            }
+        } else {
+            for (Subject subject : semesterRecord.getSubjects().values()) {
+                System.out.printf("%-26s %-22s%n", subject.getSubjectName(), "___________________");
+            }
         }
 
         System.out.println("--------------------------------------------------");
